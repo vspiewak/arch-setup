@@ -62,8 +62,17 @@ mkfs.ext4 /dev/sda3
 # mount / to /mnt
 mount /dev/sda3 /mnt
 
+# mount /boot to /mnt/boot
+mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot
+
+
 # install the base packages
 pacstrap /mnt base
 
 # generate /etc/fstab
 genfstab -U /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab
+
+# chroot into new system
+arch-chroot /mnt
