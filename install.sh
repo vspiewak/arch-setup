@@ -29,12 +29,19 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
   +100M # 100 MB boot parttion
   n # new partition
   p # primary partition
-  2 # partion number 2
+  2 # partition number 2
+    # default - start at beginning of disk
+  +2G # 2G swap parttion
+  n # new partition
+  p # primary partition
+  3 # partion number 3
     # default, start immediately after preceding partition
     # default, extend partition to end of disk
   a # make a partition bootable
   1 # bootable partition is partition 1 -- /dev/sda1
+  t # change partition type to swap
+  2 # swap partition is partition 2 -- /dev/sda2
+  82 # type swap
   p # print the in-memory partition table
-  w # write the partition table
   q # and we're done
 EOF
