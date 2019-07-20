@@ -10,3 +10,6 @@ if test -f "${EFI_VARS_FILE}"; then
 else
   echo "Boot Mode: BIOS"
 fi
+
+timedatectl set-ntp true
+timedatectl set-timezone Europe/Paris
