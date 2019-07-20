@@ -1,6 +1,8 @@
 #!/bin/bash
 
 EFI_VARS_FILE=/sys/firmware/efi/efivars
+TGTDEV=/dev/sda
+
 
 echo "Installing Arch"
 
