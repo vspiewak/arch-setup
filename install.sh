@@ -48,3 +48,22 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
   w # write the partition table
   q # and we're done
 EOF
+
+# boot partition
+mkfs.ext4 /dev/sda1
+
+# swap partition
+mkswap /dev/sda2
+swapon /dev/sda2
+
+# root partition
+mkfs.ext4 /dev/sda3
+
+# mount / to /mnt
+mount /dev/sda3 /mnt
+
+# install the base packages
+pacstrap /mnt base
+
+# generate /etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
