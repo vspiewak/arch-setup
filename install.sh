@@ -45,5 +45,6 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
   2 # swap partition is partition 2 -- /dev/sda2
   82 # type swap
   p # print the in-memory partition table
+  w # write the partition table
   q # and we're done
 EOF
