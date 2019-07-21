@@ -78,3 +78,9 @@ arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 # timezone
 ln -sf /mnt/usr/share/zoneinfo/${TIMEZONE} /mnt/etc/localtime
 arch-chroot /mnt hwclock --systohc
+
+# localization
+echo 'en_US.UTF-8 UTF-8' >> /mnt/etc/locale.gen
+arch-chroot /mnt locale-gen
+
+echo 'LANG=en_US.UTF-8' >> /mnt/etc/locale.conf
