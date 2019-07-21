@@ -38,21 +38,21 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
   t # change partition type to swap
   1 # swap partition
   82 # type swap
-  p # print the in-memory partition table
   w # write the partition table
+  p # print the in-memory partition table
   q # and we're done
 EOF
 
 # root partition
 mkfs.ext4 /dev/sda1
 
-# swap partition
-mkswap /dev/sda2
-swapon /dev/sda2
-
 # mount / to /mnt
 mount /dev/sda1 /mnt
 
+
+# swap partition
+mkswap /dev/sda2
+swapon /dev/sda2
 
 # install the base packages
 pacstrap /mnt base
@@ -64,5 +64,6 @@ cat /mnt/etc/fstab
 # chroot into new system
 
 # install grub
+arch-chroot /mnt pacman -S --noconfirm grub
 arch-chroot /mnt grub-install --target=i386-pc /dev/sda
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
