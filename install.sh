@@ -106,5 +106,12 @@ arch-chroot /mnt dhcpcd
 arch-chroot /mnt systemctl enable dhcpcd
 #arch-chroot /mnt systemctl restart dhcpcd
 
-# GDM & GNOME
-arch-chroot /mnt pacman -Syu --noconfirm gdm gnome gnome-extra
+# xorg
+arch-chroot /mnt pacman -Syu --noconfirm xorg xorg-server
+
+# gnome
+arch-chroot /mnt pacman -Syu --noconfirm gnome gnome-extra
+
+# gdm
+arch-chroot /mnt pacman -Syu --noconfirm gdm
+arch-chroot /mnt systemctl enable gdm.service
