@@ -43,16 +43,18 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
   q # and we're done
 EOF
 
-# root partition
-mkfs.ext4 /dev/sda1
-
-# mount / to /mnt
-mount /dev/sda1 /mnt
-
 
 # swap partition
-mkswap /dev/sda2
-swapon /dev/sda2
+mkswap /dev/sda1
+swapon /dev/sda1
+
+# root partition
+mkfs.ext4 /dev/sda2
+
+
+# mount / to /mnt
+mount /dev/sda2 /mnt
+
 
 # install the base packages
 pacstrap /mnt base
