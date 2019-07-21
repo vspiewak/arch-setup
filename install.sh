@@ -95,4 +95,4 @@ echo 'LANG=en_US.UTF-8' >> /mnt/etc/locale.conf
 # enable dhcpcd
 arch-chroot /mnt dhcpcd
 arch-chroot /mnt systemctl enable dhcpcd
-arch-chroot /mnt systemctl restart dhcpcd
+#arch-chroot /mnt systemctl restart dhcpcd
