@@ -53,7 +53,7 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
 EOF
 
 # boot partition
-mkfs.ext4 /dev/sda1
+mkfs.fat -F32 /dev/sda1
 
 # swap partition
 mkswap /dev/sda2
