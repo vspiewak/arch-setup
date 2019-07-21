@@ -66,4 +66,7 @@ cat /mnt/etc/fstab
 # install grub
 arch-chroot /mnt pacman -S --noconfirm grub
 arch-chroot /mnt grub-install --target=i386-pc /dev/sda
+
+echo 'GRUB_FORCE_HIDDEN_MENU="true"' >> /mnt/etc/default/grub
+chmod a+x /mnt/etc/grub.d/31_hold_shift
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
