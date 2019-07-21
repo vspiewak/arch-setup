@@ -84,3 +84,12 @@ echo 'en_US.UTF-8 UTF-8' >> /mnt/etc/locale.gen
 arch-chroot /mnt locale-gen
 
 echo 'LANG=en_US.UTF-8' >> /mnt/etc/locale.conf
+
+# hostname
+echo 't490s' >> /mnt/etc/hostname
+
+# /etc/hosts
+echo '' >> /mnt/etc/hosts
+echo '127.0.0.1	localhost' >> /mnt/etc/hosts
+echo '::1		localhost' >> /mnt/etc/hosts
+echo '127.0.1.1	t490s.localdomain	t490s' >> /mnt/etc/hosts
