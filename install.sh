@@ -3,6 +3,8 @@
 EFI_VARS_FILE=/sys/firmware/efi/efivars
 TGTDEV=/dev/sda
 TIMEZONE="Europe/Paris"
+HOSTNAME="t490s"
+
 
 echo "Installing Arch"
 
@@ -79,6 +81,13 @@ chmod a+x /mnt/etc/grub.d/31_hold_shift
 # generate grub config
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
+
+# hostname & /etc/hosts
+echo "${HOSTNAME}" > /mnt/etc/hostname
+
+echo "127.0.0.1	localhost" >> /mnt/etc/hosts
+echo "::1		localhost" >> /mnt/etc/hosts
+echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >> /mnt/etc/hosts
 
 # timezone
 ln -sf /mnt/usr/share/zoneinfo/${TIMEZONE} /mnt/etc/localtime
