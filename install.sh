@@ -81,6 +81,7 @@ chmod a+x /mnt/etc/grub.d/31_hold_shift
 # generate grub config
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
+exit 0
 
 # hostname & /etc/hosts
 echo "${HOSTNAME}" > /mnt/etc/hostname
