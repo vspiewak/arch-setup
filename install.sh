@@ -59,7 +59,7 @@ mount /dev/sda2 /mnt
 
 
 # install the base packages
-pacstrap /mnt base
+pacstrap /mnt base base-devel
 
 # generate /etc/fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -115,3 +115,35 @@ arch-chroot /mnt pacman -Syu --noconfirm gnome gnome-extra
 # gdm
 arch-chroot /mnt pacman -Syu --noconfirm gdm
 arch-chroot /mnt systemctl enable gdm.service
+
+
+# tools
+arch-chroot \
+  /mnt pacman \
+  -Syu \
+  --noconfirm \
+  \
+  git \
+  jq \
+  tree \
+  jdk-openjdk \
+  sbt \
+  go \
+  docker \
+  code \
+  firefox \
+  vlc \
+  telegram-desktop
+
+
+# AUR tools
+arch-chroot \
+  /mnt pacman \
+  -Syu \
+  --noconfirm \
+  \
+  google-chrome \
+  kubernetes-helm \
+  google-cloud-sdk \
+  slack-desktop \
+  whatsapp-nativefier
