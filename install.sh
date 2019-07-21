@@ -14,7 +14,6 @@ else
 fi
 
 timedatectl set-ntp true
-timedatectl set-timezone Europe/Paris
 
 # to create the partitions programatically (rather than manually)
 # we're going to simulate the manual input to fdisk
@@ -63,7 +62,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 
 # chroot into new system
-arch-chroot /mnt
 
-# reboot
-reboot
+# install grub
+arch-chroot /mnt grub-install --target=i386-pc /dev/sda
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
