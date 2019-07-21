@@ -61,7 +61,9 @@ pacstrap /mnt base
 genfstab -U /mnt >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 
+
 # chroot into new system
+
 
 # install grub
 arch-chroot /mnt pacman -S --noconfirm grub
@@ -75,15 +77,18 @@ chmod a+x /mnt/etc/grub.d/31_hold_shift
 # generate grub config
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
+
 # timezone
 ln -sf /mnt/usr/share/zoneinfo/${TIMEZONE} /mnt/etc/localtime
 arch-chroot /mnt hwclock --systohc
+
 
 # localization
 echo 'en_US.UTF-8 UTF-8' >> /mnt/etc/locale.gen
 arch-chroot /mnt locale-gen
 
 echo 'LANG=en_US.UTF-8' >> /mnt/etc/locale.conf
+
 
 # hostname
 echo 't490s' >> /mnt/etc/hostname
