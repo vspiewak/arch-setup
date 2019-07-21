@@ -89,6 +89,7 @@ echo "127.0.0.1	localhost" >> /mnt/etc/hosts
 echo "::1		localhost" >> /mnt/etc/hosts
 echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >> /mnt/etc/hosts
 
+
 # timezone
 ln -sf /mnt/usr/share/zoneinfo/${TIMEZONE} /mnt/etc/localtime
 arch-chroot /mnt hwclock --systohc
@@ -105,6 +106,7 @@ echo 'LANG=en_US.UTF-8' >> /mnt/etc/locale.conf
 arch-chroot /mnt dhcpcd
 arch-chroot /mnt systemctl enable dhcpcd
 #arch-chroot /mnt systemctl restart dhcpcd
+
 
 # xorg
 arch-chroot /mnt pacman -Syu --noconfirm xorg xorg-server
