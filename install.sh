@@ -28,7 +28,7 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
   p # primary partition
   1 # partition number 1
     # default - start at beginning of disk
-  +100M # 100 MB boot parttion
+  +300M # 300 MB boot parttion
   n # new partition
   p # primary partition
   2 # partition number 2
