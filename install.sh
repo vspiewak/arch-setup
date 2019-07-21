@@ -41,6 +41,9 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
     # default, extend partition to end of disk
   a # make a partition bootable
   1 # bootable partition is partition 1 -- /dev/sda1
+  t # change partition type to efi
+  1 # swap partition is partition 1 -- /dev/sda1
+  ef # type efi
   t # change partition type to swap
   2 # swap partition is partition 2 -- /dev/sda2
   82 # type swap
