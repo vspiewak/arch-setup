@@ -70,7 +70,7 @@ cat /mnt/etc/fstab
 
 
 # install grub
-arch-chroot /mnt pacman -S --noconfirm grub
+arch-chroot /mnt pacman -Syu --noconfirm grub
 arch-chroot /mnt grub-install --target=i386-pc /dev/sda
 
 # skip grub menu if *not holding shift*
@@ -105,3 +105,6 @@ echo 'LANG=en_US.UTF-8' >> /mnt/etc/locale.conf
 arch-chroot /mnt dhcpcd
 arch-chroot /mnt systemctl enable dhcpcd
 #arch-chroot /mnt systemctl restart dhcpcd
+
+# GDM & GNOME
+arch-chroot /mnt pacman -Syu --noconfirm gdm gnome gnome-extra
