@@ -99,11 +99,14 @@ echo '127.0.0.1	localhost' >> /mnt/etc/hosts
 echo '::1		localhost' >> /mnt/etc/hosts
 echo '127.0.1.1	t490s.localdomain	t490s' >> /mnt/etc/hosts
 
+arch-chroot /mnt pacman -Sy --noconfirm dhcp
+arch-chroot /mnt systemctl enable dhcpd4
+arch-chroot /mnt systemctl restart dhcpd4
+
 
 # install some packages
 arch-chroot \
   /mnt pacman \
-  -S \
+  -Sy \
   --noconfirm \
-  openssh \
-  dns-utils
+  openssh
