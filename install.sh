@@ -98,3 +98,12 @@ echo '' >> /mnt/etc/hosts
 echo '127.0.0.1	localhost' >> /mnt/etc/hosts
 echo '::1		localhost' >> /mnt/etc/hosts
 echo '127.0.1.1	t490s.localdomain	t490s' >> /mnt/etc/hosts
+
+
+# install some packages
+arch-chroot \
+  /mnt pacman \
+  -S \
+  --noconfirm \
+  openssh \
+  dns-utils
