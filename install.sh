@@ -67,6 +67,10 @@ cat /mnt/etc/fstab
 arch-chroot /mnt pacman -S --noconfirm grub
 arch-chroot /mnt grub-install --target=i386-pc /dev/sda
 
+# skip grub menu if not holding shift
 echo 'GRUB_FORCE_HIDDEN_MENU="true"' >> /mnt/etc/default/grub
+curl -o /mnt/etc/grub.d/31_hold_shift https://raw.githubusercontent.com/WhyNotHugo/grub-holdshift/master/31_hold_shift
 chmod a+x /mnt/etc/grub.d/31_hold_shift
+
+# generate grub config
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
