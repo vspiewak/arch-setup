@@ -88,25 +88,3 @@ echo 'en_US.UTF-8 UTF-8' >> /mnt/etc/locale.gen
 arch-chroot /mnt locale-gen
 
 echo 'LANG=en_US.UTF-8' >> /mnt/etc/locale.conf
-
-
-# hostname
-echo 't490s' >> /mnt/etc/hostname
-
-# /etc/hosts
-echo '' >> /mnt/etc/hosts
-echo '127.0.0.1	localhost' >> /mnt/etc/hosts
-echo '::1		localhost' >> /mnt/etc/hosts
-echo '127.0.1.1	t490s.localdomain	t490s' >> /mnt/etc/hosts
-
-arch-chroot /mnt pacman -Sy --noconfirm dhcp
-arch-chroot /mnt systemctl enable dhcpd4
-arch-chroot /mnt systemctl restart dhcpd4
-
-
-# install some packages
-arch-chroot \
-  /mnt pacman \
-  -Sy \
-  --noconfirm \
-  openssh
