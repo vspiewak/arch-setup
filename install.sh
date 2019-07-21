@@ -2,7 +2,7 @@
 
 EFI_VARS_FILE=/sys/firmware/efi/efivars
 TGTDEV=/dev/sda
-
+TIMEZONE="Europe/Paris"
 
 echo "Installing Arch"
 
@@ -74,3 +74,7 @@ chmod a+x /mnt/etc/grub.d/31_hold_shift
 
 # generate grub config
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+
+# timezone
+ln -sf /mnt/usr/share/zoneinfo/${TIMEZONE} /mnt/etc/localtime
+arch-chroot /mnt hwclock --systohc
