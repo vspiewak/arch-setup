@@ -2,6 +2,8 @@
 
 { # this ensures the entire script is downloaded #
 
+  set -x
+
   GITHUB_ACCOUNT=vspiewak
   GITHUB_PROJECT=arch-setup
 
@@ -23,10 +25,10 @@
     TMP_DIR=$(mktemp -d)
 
     echo -e "${GREY}[1/4]${NC} 🚚 Downloading archive"
-    curl -s -L -o ${TMP_DIR}/master.tgz ${ARCHIVE_URI} > /dev/null
+    curl -s -L ${ARCHIVE_URI} > ${TMP_DIR}/master.tgz
 
     echo -e "${GREY}[2/4]${NC} 🚧 Uncompress archive"
-    tar xz --strip=1 ${TMP_DIR}/master.tgz -C ${TMP_DIR}
+    tar xzf --strip=1 ${TMP_DIR}/master.tgz -C ${TMP_DIR}
 
     # launch bootstrap or install
     if [[ ! -d "${ARCH_LIVE_DIR}" ]]
