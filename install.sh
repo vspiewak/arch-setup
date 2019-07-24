@@ -28,7 +28,7 @@
     curl -s -L ${ARCHIVE_URI} > ${TMP_DIR}/master.tgz
 
     echo -e "${GREY}[2/4]${NC} 🚧 Uncompress archive"
-    tar xzf --strip=1 ${TMP_DIR}/master.tgz -C ${TMP_DIR}
+    tar xzf ${TMP_DIR}/master.tgz --strip=1 -C ${TMP_DIR}
 
     # launch bootstrap or install
     if [[ ! -d "${ARCH_LIVE_DIR}" ]]
