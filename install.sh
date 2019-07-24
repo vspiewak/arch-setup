@@ -2,8 +2,6 @@
 
 { # this ensures the entire script is downloaded #
 
-  set -x
-
   GITHUB_ACCOUNT=vspiewak
   GITHUB_PROJECT=arch-setup
 
@@ -46,6 +44,5 @@
 
   # launch install
   do_install
-
 
 } # this ensures the entire script is downloaded #
