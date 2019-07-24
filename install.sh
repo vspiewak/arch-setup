@@ -1,152 +1,49 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-EFI_VARS_FILE=/sys/firmware/efi/efivars
-TGTDEV=/dev/sda
-TIMEZONE="Europe/Paris"
-HOSTNAME="t490s"
+{ # this ensures the entire script is downloaded #
 
+  GITHUB_ACCOUNT=vspiewak
+  GITHUB_PROJECT=arch-setup
 
-echo "Installing Arch"
+  ARCH_LIVE_DIR=/run/archiso/cowspace
 
-# check boot mode
-if test -f "${EFI_VARS_FILE}"; then
-  echo "Boot Mode: UEFI"
-else
-  echo "Boot Mode: BIOS"
-fi
+  ARCHIVE_URI="https://github.com/${GITHUB_ACCOUNT}/${GITHUB_PROJECT}/tarball/master"
 
-timedatectl set-ntp true
+  do_install() {
 
-# to create the partitions programatically (rather than manually)
-# we're going to simulate the manual input to fdisk
-# The sed script strips off all the comments so that we can
-# document what we're doing in-line with the actual commands
-# Note that a blank line (commented as "defualt" will send a empty
-# line terminated with a newline to take the fdisk default.
-sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
-  o # clear the in memory partition table
-  n # new partition
-  p # primary partition
-  1 # partition number 1
-    # default - start at beginning of disk
-  +2G # 2G swap parttion
-  n # new partition
-  p # primary partition
-  2 # partion number 2
-    # default, start immediately after preceding partition
-    # default, extend partition to end of disk
-  a # make a partition bootable
-  2 #
-  t # change partition type to swap
-  1 # swap partition
-  82 # type swap
-  w # write the partition table
-  p # print the in-memory partition table
-  q # and we're done
-EOF
+    local YELLOW
+    YELLOW='\033[0;33m'
+    local BLUE
+    BLUE='\033[0;34m'
+    local GREY
+    GREY='\033[0;90m'
+    local NC
+    NC='\033[0m'
 
+    TMP_DIR=$(mktemp -d)
 
-# swap partition
-mkswap /dev/sda1
-swapon /dev/sda1
+    echo -e "${GREY}[1/4]${NC} 🚚 Downloading archive"
+    curl -s -L -o ${TMP_DIR}/master.tgz ${ARCHIVE_URI} > /dev/null
 
-# root partition
-mkfs.ext4 /dev/sda2
+    echo -e "${GREY}[2/4]${NC} 🚧 Uncompress archive"
+    tar xz --strip=1 ${TMP_DIR}/master.tgz -C ${TMP_DIR}
+
+    # launch bootstrap or install
+    if [[ ! -d "${ARCH_LIVE_DIR}" ]]
+    then
+      echo -e "${GREY}[3/4]${NC} 🚀 Run configuration"
+      ${TMP_DIR}/configure.sh
+    else
+      echo -e "${GREY}[3/4]${NC} 🚀 Run bootstrap"
+      ${TMP_DIR}/bootstrap.sh
+    fi
+
+    echo -e "${GREY}[4/4]${NC} 🎉 Done"
+
+  }
+
+  # launch install
+  do_install
 
 
-# mount / to /mnt
-mount /dev/sda2 /mnt
-
-
-# install the base packages
-pacstrap /mnt base base-devel
-
-# generate /etc/fstab
-genfstab -U /mnt >> /mnt/etc/fstab
-cat /mnt/etc/fstab
-
-
-# chroot into new system
-
-
-# install grub
-arch-chroot /mnt pacman -Syu --noconfirm grub
-arch-chroot /mnt grub-install --target=i386-pc /dev/sda
-
-# skip grub menu if *not holding shift*
-echo 'GRUB_FORCE_HIDDEN_MENU="true"' >> /mnt/etc/default/grub
-curl -o /mnt/etc/grub.d/31_hold_shift https://raw.githubusercontent.com/WhyNotHugo/grub-holdshift/master/31_hold_shift
-chmod a+x /mnt/etc/grub.d/31_hold_shift
-
-# generate grub config
-arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
-
-exit 0
-
-# hostname & /etc/hosts
-echo "${HOSTNAME}" > /mnt/etc/hostname
-
-echo "127.0.0.1	localhost" >> /mnt/etc/hosts
-echo "::1		localhost" >> /mnt/etc/hosts
-echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >> /mnt/etc/hosts
-
-
-# timezone
-ln -sf /mnt/usr/share/zoneinfo/${TIMEZONE} /mnt/etc/localtime
-arch-chroot /mnt hwclock --systohc
-
-
-# localization
-echo 'en_US.UTF-8 UTF-8' >> /mnt/etc/locale.gen
-arch-chroot /mnt locale-gen
-
-echo 'LANG=en_US.UTF-8' >> /mnt/etc/locale.conf
-
-
-# enable dhcpcd
-arch-chroot /mnt dhcpcd
-arch-chroot /mnt systemctl enable dhcpcd
-#arch-chroot /mnt systemctl restart dhcpcd
-
-
-# xorg
-arch-chroot /mnt pacman -Syu --noconfirm xorg xorg-server
-
-# gnome
-arch-chroot /mnt pacman -Syu --noconfirm gnome gnome-extra
-
-# gdm
-arch-chroot /mnt pacman -Syu --noconfirm gdm
-arch-chroot /mnt systemctl enable gdm.service
-
-
-# tools
-arch-chroot \
-  /mnt pacman \
-  -Syu \
-  --noconfirm \
-  \
-  git \
-  jq \
-  tree \
-  jdk-openjdk \
-  sbt \
-  go \
-  docker \
-  code \
-  firefox \
-  vlc \
-  telegram-desktop
-
-
-# AUR tools
-arch-chroot \
-  /mnt pacman \
-  -Syu \
-  --noconfirm \
-  \
-  google-chrome \
-  kubernetes-helm \
-  google-cloud-sdk \
-  slack-desktop \
-  whatsapp-nativefier
+} # this ensures the entire script is downloaded #
