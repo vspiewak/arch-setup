@@ -52,7 +52,7 @@ pacman -Syu --noconfirm gdm
 
 # yay
 pacman -Syu --noconfirm git
-su -c "git clone https://aur.archlinux.org/yay.git /tmp" vince
+su -c "git clone https://aur.archlinux.org/yay.git /tmp/yay" vince
 su -c "cd /tmp/yay && makepkg -si" vince
 
 # install dash to dock
