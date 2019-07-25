@@ -50,6 +50,9 @@ gsettings set org.gnome.desktop.wm.preferences button-layout appmenu:minimize,ma
 pacman -Syu --noconfirm gdm
 #systemctl enable gdm.service
 
+# font emoji
+pacman -Syu ----noconfirm ttf-joypixels
+
 # yay
 pacman -Syu --needed --noconfirm base-devel
 
