@@ -2,6 +2,9 @@
 HOSTNAME="t490s"
 TIMEZONE="Europe/Paris"
 
+username=vince
+password=test
+
 # timezone
 ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 hwclock --systohc
@@ -29,9 +32,8 @@ echo "${HOSTNAME}" > /etc/hostname
 #rm /etc/sudoers.new
 
 # create user
-#useradd -m -g users -G wheel -s /bin/bash ${username}
-#echo "${username}:${password}" | chpasswd
-
+useradd -m -g users -G wheel -s /bin/bash ${username}
+echo "${username}:${password}" | chpasswd
 #echo "root:${password}" | chpasswd
 
 
@@ -47,3 +49,11 @@ gsettings set org.gnome.desktop.wm.preferences button-layout appmenu:minimize,ma
 # gdm
 pacman -Syu --noconfirm gdm
 #systemctl enable gdm.service
+
+# yay
+pacman -Syu --noconfirm git
+su -c "git clone https://aur.archlinux.org/yay.git -C /tmp" vince
+su -c "cd /tmp/yay && makepkg -si" vince
+
+# install dash to dock
+su -c "yay -Syu gnome-shell-extension-dash-to-dock" vince
