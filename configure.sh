@@ -51,7 +51,7 @@ pacman -Syu --noconfirm gdm
 #systemctl enable gdm.service
 
 # yay
-pacman -Syu --needed base-devel
+pacman -Syu --needed --noconfirm base-devel
 
 pacman -Syu --noconfirm git
 su -c "git clone https://aur.archlinux.org/yay.git /tmp/yay" vince
