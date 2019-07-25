@@ -61,7 +61,7 @@ pacman -Syu --noconfirm git
 
 pacman -Syu --noconfirm go
 
-su -c "git clone https://aur.archlinux.org/yay.git /tmp/yay" vince
+su -c "rm -rf /tmp/yay && git clone https://aur.archlinux.org/yay.git /tmp/yay" vince
 su -c "cd /tmp/yay && makepkg -si --noconfirm" vince
 
 # install dash to dock
