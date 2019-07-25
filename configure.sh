@@ -52,7 +52,7 @@ pacman -Syu --noconfirm gdm
 
 # font emoji
 #pacman -Syu ----noconfirm noto-fonts-emoji
-pacman -Syu ----noconfirm ttf-joypixels
+pacman -Syu --noconfirm ttf-joypixels
 
 # yay
 pacman -Syu --needed --noconfirm base-devel
