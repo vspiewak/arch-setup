@@ -24,12 +24,12 @@ echo "${HOSTNAME}" > /etc/hostname
 
 
 # user / sudoers
-#pacman -Syu --noconfirm sudo
+pacman -Syu --noconfirm sudo
 
 # enable sudo without passwd
-#sed 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers > /etc/sudoers.new
-#cp /etc/sudoers.new /etc/sudoers
-#rm /etc/sudoers.new
+sed 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers > /etc/sudoers.new
+cp /etc/sudoers.new /etc/sudoers
+rm /etc/sudoers.new
 
 # create user
 useradd -m -g users -G wheel -s /bin/bash ${username}
