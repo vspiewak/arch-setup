@@ -51,12 +51,16 @@ pacman -Syu --noconfirm gdm
 #systemctl enable gdm.service
 
 # font emoji
+#pacman -Syu ----noconfirm noto-fonts-emoji
 pacman -Syu ----noconfirm ttf-joypixels
 
 # yay
 pacman -Syu --needed --noconfirm base-devel
 
 pacman -Syu --noconfirm git
+
+pacman -Syu --noconfirm go
+
 su -c "git clone https://aur.archlinux.org/yay.git /tmp/yay" vince
 su -c "cd /tmp/yay && makepkg -si" vince
 
