@@ -65,4 +65,4 @@ su -c "git clone https://aur.archlinux.org/yay.git /tmp/yay" vince
 su -c "cd /tmp/yay && makepkg -si --noconfirm" vince
 
 # install dash to dock
-su -c "yay -Syu gnome-shell-extension-dash-to-dock" vince
+yay -Syu --noconfirm gnome-shell-extension-dash-to-dock
