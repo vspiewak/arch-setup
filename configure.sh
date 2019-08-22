@@ -67,9 +67,9 @@ su -c "cd /tmp/yay && makepkg -si --noconfirm" vince
 # install dash to dock
 su -c "yay -Syu --noconfirm gnome-shell-extension-dash-to-dock" vince
 
-su -c "gnome-shell-extension-tool -e dash-to-dock" vince
-su -c "gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true" vince
-su -c "gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM" vince
-su -c "gsettings set org.gnome.shell.extensions.dash-to-dock extend-height true" vince
-su -c "gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed true" vince
-su -c "gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 32" vince
+su - -c "gnome-shell-extension-tool -e dash-to-dock" vince
+su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true" vince
+su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM" vince
+su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock extend-height true" vince
+su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed true" vince
+su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 32" vince
