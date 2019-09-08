@@ -36,6 +36,11 @@ useradd -m -g users -G wheel -s /bin/bash ${username}
 echo "${username}:${password}" | chpasswd
 #echo "root:${password}" | chpasswd
 
+# virtualbox
+IS_VIRTUALBOX=$(dmesg --notime | grep -i "virtualbox" | wc -l)
+if [ "$IS_VIRTUALBOX" -gt "0" ]; then
+  pacman -Syu --noconfirm virtualbox-guest-utils xf86-video-vmware
+fi
 
 # xorg
 pacman -Syu --noconfirm xorg xorg-server
