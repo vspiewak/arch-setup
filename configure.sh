@@ -47,9 +47,10 @@ pacman -Syu --noconfirm xorg xorg-server
 
 # gnome
 pacman -Syu --noconfirm gnome
+pacman -Syu gnome-tweaks
 
 # windows button on gnome for a better experience
-gsettings set org.gnome.desktop.wm.preferences button-layout appmenu:minimize,maximize,close
+su - -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.wm.preferences button-layout appmenu:minimize,maximize,close" vince
 
 # gdm
 pacman -Syu --noconfirm gdm
