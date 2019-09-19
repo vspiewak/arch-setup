@@ -50,7 +50,7 @@ pacman -Syu --noconfirm gnome
 pacman -Syu gnome-tweaks
 
 # windows button on gnome for a better experience
-su - -c "dbus-launch --exit-with-session gsettings set org.gnome.desktop.wm.preferences button-layout appmenu:minimize,maximize,close" vince
+sudo -u vince -H dbus-launch --exit-with-session gsettings set org.gnome.desktop.wm.preferences button-layout appmenu:minimize,maximize,close
 
 # gdm
 pacman -Syu --noconfirm gdm
