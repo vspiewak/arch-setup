@@ -47,20 +47,23 @@ pacman -Syu --noconfirm xorg xorg-server
 
 # gnome
 pacman -Syu --noconfirm gnome
-pacman -Syu gnome-tweaks-tool
+pacman -Syu  --noconfirm gnome-tweaks
 
-mkdir -p /etc/dconf/profile/
+mkdir -p /etc/dconf/profile
 cat > /etc/dconf/profile/user <<'EOF'
 user-db:user
 system-db:local
 EOF
 
-mkdir -p /etc/dconf/db/local.d/
-cat > /etc/dconf/db/local.d/10_gnome <<'EOF'
+mkdir -p /etc/dconf/db/local.d
+cat > /etc/dconf/db/local.d/00_defaults <<'EOF'
 [org/gnome/desktop/wm/preferences]
 button-layout='appmenu:minimize,maximize,close'
 EOF
 
+dconf update
+
+# stop here
 exit 0
 
 # windows button on gnome for a better experience
