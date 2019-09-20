@@ -70,6 +70,9 @@ su -c "cd /tmp/yay && makepkg -si --noconfirm" vince
 # install dash to dock
 su -c "yay -Syu --noconfirm gnome-shell-extension-dash-to-dock" vince
 
+# install arch-update
+pacman -Syu --noconfirm gnome-shell-extension-arch-update
+
 # install gnome defaults settings
 mkdir -p /etc/dconf/profile
 cat > /etc/dconf/profile/user <<'EOF'
@@ -81,7 +84,7 @@ mkdir -p /etc/dconf/db/local.d
 cat > /etc/dconf/db/local.d/00_defaults <<'EOF'
 [org/gnome/shell]
 enabled-extensions=['ubuntu-dock@ubuntu.com']
-favorite-apps=['org.gnome.Nautilus.desktop','org.gnome.Software.desktop','org.gnome.Terminal.desktop']
+favorite-apps=['org.gnome.Nautilus.desktop','org.gnome.Terminal.desktop','org.gnome.Epiphany.desktop']
 
 [org/gnome/shell/extensions/dash-to-dock]
 show-apps-at-top=true
