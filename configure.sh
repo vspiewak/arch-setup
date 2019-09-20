@@ -81,13 +81,14 @@ mkdir -p /etc/dconf/db/local.d
 cat > /etc/dconf/db/local.d/00_defaults <<'EOF'
 [org/gnome/shell]
 enabled-extensions=['ubuntu-dock@ubuntu.com']
+favorite-apps=['org.gnome.Nautilus.desktop','org.gnome.Software.desktop','org.gnome.Terminal.desktop']
 
 [org/gnome/shell/extensions/dash-to-dock]
-show-apps-at-top='true'
+show-apps-at-top=true
 dock-position='BOTTOM'
-extend-height='true'
-dock-fixed='true'
-dash-max-icon-size='32'
+extend-height=true
+dock-fixed=true
+dash-max-icon-size=32
 
 [org/gnome/desktop/interface]
 gtk-theme='Adwaita-dark'
