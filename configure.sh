@@ -80,7 +80,7 @@ EOF
 mkdir -p /etc/dconf/db/local.d
 cat > /etc/dconf/db/local.d/00_defaults <<'EOF'
 [org/gnome/shell]
-enabled-extensions=['dash-to-dock']
+enabled-extensions=['ubuntu-dock@ubuntu.com']
 
 [org/gnome/shell/extensions/dash-to-dock]
 show-apps-at-top='true'
