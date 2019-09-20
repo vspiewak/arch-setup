@@ -49,6 +49,28 @@ pacman -Syu --noconfirm xorg xorg-server
 pacman -Syu --noconfirm gnome
 pacman -Syu  --noconfirm gnome-tweaks
 
+# gdm
+pacman -Syu --noconfirm gdm
+systemctl enable gdm.service
+
+# font emoji
+#pacman -Syu ----noconfirm noto-fonts-emoji
+pacman -Syu --noconfirm ttf-joypixels
+
+
+# yay
+pacman -Syu --needed --noconfirm base-devel
+pacman -Syu --noconfirm git
+pacman -Syu --noconfirm go
+
+su -c "rm -rf /tmp/yay && git clone https://aur.archlinux.org/yay.git /tmp/yay" vince
+su -c "cd /tmp/yay && makepkg -si --noconfirm" vince
+
+
+# install dash to dock
+su -c "yay -Syu --noconfirm gnome-shell-extension-dash-to-dock" vince
+
+# install gnome defaults settings
 mkdir -p /etc/dconf/profile
 cat > /etc/dconf/profile/user <<'EOF'
 user-db:user
@@ -57,42 +79,22 @@ EOF
 
 mkdir -p /etc/dconf/db/local.d
 cat > /etc/dconf/db/local.d/00_defaults <<'EOF'
+[org/gnome/shell]
+enabled-extensions=['dash-to-dock']
+
+[org/gnome/shell/extensions/dash-to-dock]
+show-apps-at-top='true'
+dock-position='BOTTOM'
+extend-height='true'
+dock-fixed='true'
+dash-max-icon-size='32'
+
+[org/gnome/desktop/interface]
+gtk-theme='Adwaita-dark'
+
 [org/gnome/desktop/wm/preferences]
 button-layout='appmenu:minimize,maximize,close'
 EOF
 
+# update gnome settings
 dconf update
-
-# stop here
-exit 0
-
-# windows button on gnome for a better experience
-sudo -u vince -H dbus-launch --exit-with-session gsettings set org.gnome.desktop.wm.preferences button-layout appmenu:minimize,maximize,close
-
-# gdm
-pacman -Syu --noconfirm gdm
-#systemctl enable gdm.service
-
-# font emoji
-#pacman -Syu ----noconfirm noto-fonts-emoji
-pacman -Syu --noconfirm ttf-joypixels
-
-# yay
-pacman -Syu --needed --noconfirm base-devel
-
-pacman -Syu --noconfirm git
-
-pacman -Syu --noconfirm go
-
-su -c "rm -rf /tmp/yay && git clone https://aur.archlinux.org/yay.git /tmp/yay" vince
-su -c "cd /tmp/yay && makepkg -si --noconfirm" vince
-
-# install dash to dock
-su -c "yay -Syu --noconfirm gnome-shell-extension-dash-to-dock" vince
-
-su - -c "gnome-shell-extension-tool -e dash-to-dock" vince
-su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true" vince
-su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM" vince
-su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock extend-height true" vince
-su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed true" vince
-su - -c "gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 32" vince
