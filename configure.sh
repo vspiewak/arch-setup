@@ -124,6 +124,8 @@ pacman -Syu --noconfirm firefox-developer-edition
 
 pacman -Syu --noconfirm telegram-desktop
 
+su -c "yay -Syu --noconfirm franz" vince
+
 pacman -Syu --noconfirm vlc
 
 su -c "yay -Syu --noconfirm slack-desktop" vince
