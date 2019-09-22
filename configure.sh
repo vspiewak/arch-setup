@@ -115,7 +115,11 @@ dconf update
 
 pacman -Syu --noconfirm jq
 
+pacman -Syu --noconfirm go
+
 pacman -Syu --noconfirm jdk-openjdk jdk8-openjdk
+
+pacman -Syu --noconfirm sbt
 
 pacman -Syu --noconfirm firefox-developer-edition
 
