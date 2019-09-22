@@ -76,6 +76,8 @@ su -c "yay -Syu --noconfirm gnome-shell-extension-dash-to-dock" vince
 # gnome shell: arch-update
 su -c "yay -Syu --noconfirm gnome-shell-extension-arch-update" vince
 
+# gnome shell: caffeine
+su -c "yay -Syu --noconfirm gnome-shell-extension-caffeine-plus-git" vince
 
 # install gnome defaults settings
 mkdir -p /etc/dconf/profile
