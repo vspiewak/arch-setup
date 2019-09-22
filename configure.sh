@@ -93,6 +93,9 @@ dock-position='BOTTOM'
 extend-height=true
 dock-fixed=true
 dash-max-icon-size=32
+custom-theme-shrink=true
+transparency-mode='FIXED'
+background-opacity=0.60
 
 [org/gnome/desktop/interface]
 gtk-theme='Adwaita-dark'
