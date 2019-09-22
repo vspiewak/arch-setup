@@ -67,11 +67,12 @@ su -c "rm -rf /tmp/yay && git clone https://aur.archlinux.org/yay.git /tmp/yay" 
 su -c "cd /tmp/yay && makepkg -si --noconfirm" vince
 
 
-# install dash to dock
+# gnome shell: dash to dock
 su -c "yay -Syu --noconfirm gnome-shell-extension-dash-to-dock" vince
 
-# install arch-update
-pacman -Syu --noconfirm gnome-shell-extension-arch-update
+# gnome shell: arch-update
+su -c "yay -Syu --noconfirm gnome-shell-extension-arch-update" vince
+
 
 # install gnome defaults settings
 mkdir -p /etc/dconf/profile
@@ -83,7 +84,7 @@ EOF
 mkdir -p /etc/dconf/db/local.d
 cat > /etc/dconf/db/local.d/00_defaults <<'EOF'
 [org/gnome/shell]
-enabled-extensions=['ubuntu-dock@ubuntu.com']
+enabled-extensions=['ubuntu-dock@ubuntu.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'arch-update@RaphaelRochet']
 favorite-apps=['org.gnome.Nautilus.desktop','org.gnome.Terminal.desktop','org.gnome.Epiphany.desktop']
 
 [org/gnome/shell/extensions/dash-to-dock]
@@ -98,7 +99,16 @@ gtk-theme='Adwaita-dark'
 
 [org/gnome/desktop/wm/preferences]
 button-layout='appmenu:minimize,maximize,close'
+num-workspaces=5
 EOF
 
 # update gnome settings
 dconf update
+
+pacman -Syu --noconfirm jq
+
+pacman -Syu --noconfirm atom
+
+#pacman -Syu --noconfirm chromium #google-chrome
+
+pacman -Syu --noconfirm firefox-developer-edition
