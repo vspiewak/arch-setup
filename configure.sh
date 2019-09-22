@@ -115,24 +115,25 @@ pacman -Syu --noconfirm jq
 
 pacman -Syu --noconfirm jdk-openjdk jdk8-openjdk
 
-pacman -Syu --noconfirm atom
+pacman -Syu --noconfirm firefox-developer-edition
 
 #pacman -Syu --noconfirm chromium
 su -c "yay -Syu --noconfirm google-chrome" vince
 
-pacman -Syu --noconfirm firefox-developer-edition
-
-pacman -Syu --noconfirm telegram-desktop
-
-su -c "yay -Syu --noconfirm franz" vince
-su -c "yay -Syu --noconfirm whatsapp-nativefier" vince
-
-pacman -Syu --noconfirm vlc
-
-su -c "yay -Syu --noconfirm slack-desktop" vince
+pacman -Syu --noconfirm atom
 
 su -c "yay -Syu --noconfirm intellij-idea-ultimate-edition" vince
 
 su -c "yay -Syu --noconfirm visual-studio-code-bin" vince
+
+pacman -Syu --noconfirm telegram-desktop
+
+su -c "yay -Syu --noconfirm whatsapp-nativefier" vince
+
+su -c "yay -Syu --noconfirm slack-desktop" vince
+
+su -c "yay -Syu --noconfirm franz" vince
+
+pacman -Syu --noconfirm vlc
 
 pacman -Syu --noconfirm docker
