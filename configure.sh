@@ -49,6 +49,9 @@ pacman -Syu --noconfirm xorg xorg-server
 pacman -Syu --noconfirm gnome
 pacman -Syu  --noconfirm gnome-tweaks
 
+# google drive
+pacman -Syu --noconfirm gnome-control-center gnome-online-accounts
+
 # gdm
 pacman -Syu --noconfirm gdm
 systemctl enable gdm.service
