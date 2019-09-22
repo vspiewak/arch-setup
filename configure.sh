@@ -117,7 +117,6 @@ pacman -Syu --noconfirm jdk-openjdk jdk8-openjdk
 
 pacman -Syu --noconfirm firefox-developer-edition
 
-#pacman -Syu --noconfirm chromium
 su -c "yay -Syu --noconfirm google-chrome" vince
 
 pacman -Syu --noconfirm atom
@@ -136,4 +135,8 @@ su -c "yay -Syu --noconfirm franz" vince
 
 pacman -Syu --noconfirm vlc
 
+# docker
 pacman -Syu --noconfirm docker
+#
+usermod -aG docker vince
+systemctl enable dhcpcd
