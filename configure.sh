@@ -125,6 +125,7 @@ pacman -Syu --noconfirm firefox-developer-edition
 pacman -Syu --noconfirm telegram-desktop
 
 su -c "yay -Syu --noconfirm franz" vince
+su -c "yay -Syu --noconfirm whatsapp-nativefier" vince
 
 pacman -Syu --noconfirm vlc
 
