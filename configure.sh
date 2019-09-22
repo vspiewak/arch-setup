@@ -133,4 +133,6 @@ su -c "yay -Syu --noconfirm slack-desktop" vince
 
 su -c "yay -Syu --noconfirm intellij-idea-ultimate-edition" vince
 
+su -c "yay -Syu --noconfirm visual-studio-code-bin" vince
+
 pacman -Syu --noconfirm docker
