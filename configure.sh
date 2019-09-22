@@ -85,7 +85,7 @@ mkdir -p /etc/dconf/db/local.d
 cat > /etc/dconf/db/local.d/00_defaults <<'EOF'
 [org/gnome/shell]
 enabled-extensions=['dash-to-dock@micxgx.gmail.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'arch-update@RaphaelRochet']
-favorite-apps=['org.gnome.Nautilus.desktop','org.gnome.Terminal.desktop','org.gnome.Epiphany.desktop']
+favorite-apps=['org.gnome.Nautilus.desktop','org.gnome.Terminal.desktop','firefox-developer-edition.desktop', 'google-chrome.desktop', 'telegramdesktop.desktop', 'slack.desktop', 'atom.desktop', 'vlc.desktop']
 
 [org/gnome/shell/extensions/dash-to-dock]
 show-apps-at-top=true
