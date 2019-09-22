@@ -84,7 +84,7 @@ EOF
 mkdir -p /etc/dconf/db/local.d
 cat > /etc/dconf/db/local.d/00_defaults <<'EOF'
 [org/gnome/shell]
-enabled-extensions=['ubuntu-dock@ubuntu.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'arch-update@RaphaelRochet']
+enabled-extensions=['dash-to-dock@micxgx.gmail.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'arch-update@RaphaelRochet']
 favorite-apps=['org.gnome.Nautilus.desktop','org.gnome.Terminal.desktop','org.gnome.Epiphany.desktop']
 
 [org/gnome/shell/extensions/dash-to-dock]
@@ -107,8 +107,21 @@ dconf update
 
 pacman -Syu --noconfirm jq
 
+pacman -Syu --noconfirm jdk-openjdk jdk8-openjdk
+
 pacman -Syu --noconfirm atom
 
-#pacman -Syu --noconfirm chromium #google-chrome
+#pacman -Syu --noconfirm chromium
+su -c "yay -Syu --noconfirm google-chrome" vince
 
 pacman -Syu --noconfirm firefox-developer-edition
+
+pacman -Syu --noconfirm telegram-desktop
+
+pacman -Syu --noconfirm vlc
+
+su -c "yay -Syu --noconfirm slack-desktop" vince
+
+su -c "yay -Syu --noconfirm intellij-idea-ultimate-edition" vince
+
+pacman -Syu --noconfirm docker
