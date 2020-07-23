@@ -1,9 +1,6 @@
-echo 'bootsrap'
+SCRIPTS_DIR=$(dirname "$(readlink -f "$0")")
 
-pwd
-ls -al *.sh
-
-for script in "*.sh" ; do
+for script in "${SCRIPTS_DIR}/*.sh" ; do
     [[ -e "${script}" ]] || break
     source "${script}"
 done
