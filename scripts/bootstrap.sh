@@ -116,6 +116,22 @@ bootstrap() {
     LINE="::1\t\tlocalhost"; grep -Pq "${LINE}" /mnt/etc/hosts || echo -e "${LINE}" >> /mnt/etc/hosts
     LINE="127.0.1.1\t${HOSTNAME}.localdomain\t${HOSTNAME}"; grep -Pq "${LINE}" /mnt/etc/hosts || echo -e "${LINE}" >> /mnt/etc/hosts
 
+    # reflector 
+    arch-chroot /mnt pacman -Syu --noconfirm reflector
+    arch-chroot /mnt reflector --latest 50 --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+    cat > /mnt/etc/pacman.d/hooks/mirrorupgrade.hook << EOF
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = pacman-mirrorlist
+
+[Action]
+Description = Updating pacman-mirrorlist with reflector and removing pacnew...
+When = PostTransaction
+Depends = reflector
+Exec = /bin/sh -c "reflector --latest 50 --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist; rm -f /etc/pacman.d/mirrorlist.pacnew"
+EOF
+
     # install dhcpcd
     arch-chroot /mnt pacman -Syu --noconfirm dhcpcd
     arch-chroot /mnt systemctl enable dhcpcd
