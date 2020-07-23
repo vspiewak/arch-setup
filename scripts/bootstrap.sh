@@ -119,6 +119,7 @@ bootstrap() {
     # reflector 
     arch-chroot /mnt pacman -Syu --noconfirm reflector
     arch-chroot /mnt reflector --latest 50 --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+    arch-chroot /mnt/ mkdir -p /etc/pacman.d/hooks
     cat > /mnt/etc/pacman.d/hooks/mirrorupgrade.hook << EOF
 [Trigger]
 Operation = Upgrade
@@ -137,7 +138,7 @@ EOF
     arch-chroot /mnt systemctl enable dhcpcd
 
     # install wifi tools
-    arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant wifi-menu
+    arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant netctl
 
     # set root password
     echo -e "${PASSWORD}\n${PASSWORD}" | passwd --root /mnt
