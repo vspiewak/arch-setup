@@ -29,7 +29,7 @@
     tar xzf ${TMP_DIR}/master.tgz --strip=1 -C ${TMP_DIR}
 
     echo -e "${GREY}[3/4]${NC} 🚀 Run bootstrap"
-    ${TMP_DIR}/bootstrap.sh
+    ${TMP_DIR}/scripts/bootstrap.sh
 
     echo -e "${GREY}[4/4]${NC} 🎉 Done"
 
