@@ -120,6 +120,9 @@ bootstrap() {
     arch-chroot /mnt pacman -Syu --noconfirm dhcpcd
     arch-chroot /mnt systemctl enable dhcpcd
 
+    # install wifi tools
+    arch-chroot /mnt pacman -Syu --noconfirm dialog wpa_supplicant wifi-menu
+
     # set root password
     echo -e "${PASSWORD}\n${PASSWORD}" | passwd --root /mnt
 
