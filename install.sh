@@ -28,6 +28,7 @@
     echo -e "${GREY}[2/4]${NC} 🚧 Uncompress archive"
     tar xzf ${TMP_DIR}/master.tgz --strip=1 -C ${TMP_DIR}
     
+    # source all scripts
     for file in ${TMP_DIR}/scripts/*.sh;
     do
       source $file;
