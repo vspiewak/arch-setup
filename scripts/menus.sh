@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 chech_as_root() {
     if [ "$EUID" -ne 0 ]
         then 

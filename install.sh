@@ -27,9 +27,15 @@
 
     echo -e "${GREY}[2/4]${NC} 🚧 Uncompress archive"
     tar xzf ${TMP_DIR}/master.tgz --strip=1 -C ${TMP_DIR}
+    
+    for file in ${TMP_DIR}/scripts/*.sh;
+    do
+      source $file;
+    done
 
     echo -e "${GREY}[3/4]${NC} 🚀 Run bootstrap"
-    ${TMP_DIR}/scripts/bootstrap.sh
+
+    chech_as_root
 
     echo -e "${GREY}[4/4]${NC} 🎉 Done"
 
