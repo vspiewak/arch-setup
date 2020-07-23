@@ -11,21 +11,17 @@
 
   do_install() {
 
-    local YELLOW
-    YELLOW='\033[0;33m'
     local BLUE
     BLUE='\033[0;34m'
-    local GREY
-    GREY='\033[0;90m'
     local NC
     NC='\033[0m'
 
     TMP_DIR=$(mktemp -d)
 
-    echo -e "${GREY}[1/4]${NC} 🚚 Downloading archive"
+    echo -e "${BLUE}[1/4]${NC} Downloading archive"
     curl -s -L ${ARCHIVE_URI} > ${TMP_DIR}/master.tgz
 
-    echo -e "${GREY}[2/4]${NC} 🚧 Uncompress archive"
+    echo -e "${BLUE}[2/4]${NC} Uncompress archive"
     tar xzf ${TMP_DIR}/master.tgz --strip=1 -C ${TMP_DIR}
     
     # source all scripts
@@ -34,10 +30,10 @@
       source $file;
     done
 
-    echo -e "${GREY}[3/4]${NC} 🚀 Run bootstrap"
+    echo -e "${BLUE}[3/4]${NC} Run bootstrap"
     run_bootstrap
 
-    echo -e "${GREY}[4/4]${NC} 🎉 Done"
+    echo -e "${BLUE}[4/4]${NC} Done"
 
   }
 
