@@ -28,15 +28,8 @@
     echo -e "${GREY}[2/4]${NC} 🚧 Uncompress archive"
     tar xzf ${TMP_DIR}/master.tgz --strip=1 -C ${TMP_DIR}
 
-    # launch bootstrap or install
-    if [[ ! -d "${ARCH_LIVE_DIR}" ]]
-    then
-      echo -e "${GREY}[3/4]${NC} 🚀 Run configuration"
-      ${TMP_DIR}/configure.sh
-    else
-      echo -e "${GREY}[3/4]${NC} 🚀 Run bootstrap"
-      ${TMP_DIR}/bootstrap.sh
-    fi
+    echo -e "${GREY}[3/4]${NC} 🚀 Run bootstrap"
+    ${TMP_DIR}/bootstrap.sh
 
     echo -e "${GREY}[4/4]${NC} 🎉 Done"
 
