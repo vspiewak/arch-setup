@@ -34,8 +34,7 @@
     done
 
     echo -e "${GREY}[3/4]${NC} 🚀 Run bootstrap"
-
-    chech_as_root
+    run_bootstrap
 
     echo -e "${GREY}[4/4]${NC} 🎉 Done"
 
