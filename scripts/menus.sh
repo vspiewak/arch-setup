@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 chech_as_root() {
-    if [ "$EUID" -ne 0 ]
+    if [[ "$EUID" != 0 ]]
         then 
                 whiptail --clear --msgbox "It should run as root, can't install" --title "Run as ${USERNAME}" 7 45 3>&1 1>&2 2>&3
                 exit 1
@@ -9,12 +9,11 @@ chech_as_root() {
 }
 
 check_arch_iso() {
-    command -v pacstrap
-    if [ "$?" -ne "0" ]
+    if [[ $(command -v pacstrap) ]]
         then
                 whiptail --clear --msgbox "Arch Linux ISO not mounted, can't install" --title "Arch ISO error" 7 45 3>&1 1>&2 2>&3
                 exit 1
-        fi    
+    fi    
 }
 
 
@@ -22,7 +21,7 @@ install_ok() {
     if ! (whiptail --clear --defaultno --yesno "This will install Arch. Are you sure ?" --title "Arch installation" 7 42 3>&1 1>&2 2>&3) 
         then
             exit 1
-        fi
+    fi
 }
 
 
@@ -48,9 +47,9 @@ set_keyboard() {
             "uk" "United Kingdom" \
             "other" "Other" 3>&1 1>&2 2>&3)
 
-            if [ "${KEYBOARD}" = "other" ]; then
-                KEYBOARD=$(whiptail --clear --menu "Choose a layout" --title "Keyboard layout" 19 60 10  $key_maps 3>&1 1>&2 2>&3)
-                if [ "$?" -eq "0" ]; then
+            if [[ "${KEYBOARD}" == other ]]; then
+                KEYBOARD=$(whiptail --clear --menu "Choose a layout" --title "Keyboard layout" 19 60 10  "$key_maps" 3>&1 1>&2 2>&3)
+                if [[ "$?" == 0 ]]; then
                     break
                 fi
             else
@@ -58,10 +57,10 @@ set_keyboard() {
             fi
         done
 
-    loadkeys ${KEYBOARD}
+    loadkeys "${KEYBOARD}"
 
     TEST_KEYBOARD=$(whiptail --clear --cancel-button "Choose another layout" --inputbox "Is the new layout ok ?" 8 78 --title "Keyboard layout" 3>&1 1>&2 2>&3)
-    if [ "$?" -eq "1" ]
+    if [[ "$?" == 1 ]]
         then
             set_keyboard
         fi
@@ -75,15 +74,15 @@ set_timezone() {
     while (true)
         do
         
-        ZONE=$(whiptail --clear --nocancel --menu "Choose your timezone" 19 60 11 $zonelist 3>&1 1>&2 2>&3)
+        ZONE=$(whiptail --clear --nocancel --menu "Choose your timezone" 19 60 11 "$zonelist" 3>&1 1>&2 2>&3)
         if (find /usr/share/zoneinfo -maxdepth 1 -type d | sed -n -e 's!^.*/!!p' | grep "$ZONE" &> /dev/null); then
             sublist=$(find /usr/share/zoneinfo/"$ZONE" -maxdepth 1 | sed -n -e 's!^.*/!!p' | sort | sed 's/$/ -/g' | grep -v "$ZONE")
-            SUBZONE=$(whiptail --clear --cancel-button "Back" --menu "Choose your zone" 18 60 11 $sublist 3>&1 1>&2 2>&3)
-            if [ "$?" -eq "0" ]; then
+            SUBZONE=$(whiptail --clear --cancel-button "Back" --menu "Choose your zone" 18 60 11 "$sublist" 3>&1 1>&2 2>&3)
+            if [[ "$?" == 0 ]]; then
                 if (find /usr/share/zoneinfo/"$ZONE" -maxdepth 1 -type  d | sed -n -e 's!^.*/!!p' | grep "$SUBZONE" &> /dev/null); then
                     sublist=$(find /usr/share/zoneinfo/"$ZONE"/"$SUBZONE" -maxdepth 1 | sed -n -e 's!^.*/!!p' | sort | sed 's/$/ -/g' | grep -v "$SUBZONE")
-                    SUB_SUBZONE=$(whiptail --clear --cancel-button "Back" --menu "Choose your sub zone" 15 60 7 $sublist 3>&1 1>&2 2>&3)
-                    if [ "$?" -eq "0" ]; then
+                    SUB_SUBZONE=$(whiptail --clear --cancel-button "Back" --menu "Choose your sub zone" 15 60 7 "$sublist" 3>&1 1>&2 2>&3)
+                    if [[ "$?" == 0 ]]; then
                         ZONE="${ZONE}/${SUBZONE}/${SUB_SUBZONE}"
                         break
                     fi
@@ -102,10 +101,7 @@ set_hostname() {
     while (true)
     do
         HOSTNAME=$(whiptail --clear --nocancel --inputbox "Enter the hostname ?" 8 78 --title "Hostname" 3>&1 1>&2 2>&3)
-        if [ "$?" -eq "0" ] && [ "${HOSTNAME}" != "" ]
-            then
-                break
-            fi
+        [[ "$?" == 0 && "${HOSTNAME}" != "" ]] && break
     done
 }
 
@@ -113,8 +109,8 @@ set_hostname() {
 set_username() {
     while (true)
     do
-        USERNAME=$(whiptail --clear --nocancel --inputbox "Choose a username" 8 78 ${DEFAULT_SWAP_SIZE} --title "User name" 3>&1 1>&2 2>&3)
-        if [ "$?" -eq "0" ] && [ ! -z "${USERNAME##*[!0-9a-zA-Z]*}" ]
+        USERNAME=$(whiptail --clear --nocancel --inputbox "Choose a username" 8 78 "${DEFAULT_SWAP_SIZE}" --title "User name" 3>&1 1>&2 2>&3)
+        if [[ "$?" == 0 &&  -n "${USERNAME##*[!0-9a-zA-Z]*}" ]]
             then
                 break
             fi
@@ -126,11 +122,10 @@ set_password() {
     while (true)
         do
             PASSWORD=$(whiptail --clear --nocancel --passwordbox "Enter your password" 8 78 --title "Password" 3>&1 1>&2 2>&3)
-            if [ "$?" -eq "0" ] && [ "${PASSWORD}" != "" ]
+            if [[ "$?" == 0 && "${PASSWORD}" != "" ]]
                 then
-                    
                     REPASSWORD=$(whiptail --clear --passwordbox "Re-type your password" 8 78 --title "Confirm password" 3>&1 1>&2 2>&3)
-                    if [ "$?" == "0" ]
+                    if [[ "$?" == 0 ]]
                         then
                             if [ "${PASSWORD}" == "${REPASSWORD}" ]
                                 then
@@ -143,10 +138,10 @@ set_password() {
 
 set_disk() {
 
-    disks=$(lsblk -nio NAME,SIZE,TYPE | egrep "disk|raid[0-9]+$" | column -t | uniq | awk '{ print "\"" $1 "\" \"    (" $2 ")\"" }' | column -t)
-    DISK=$(echo $disks | xargs whiptail --clear --nocancel --title "Disk installation" --menu "Choose a disk" 15 70 4 3>&1 1>&2 2>&3)    
+    disks=$(lsblk -nio NAME,SIZE,TYPE | grep -E "disk|raid[0-9]+$" | column -t | uniq | awk '{ print "\"" $1 "\" \"    (" $2 ")\"" }' | column -t)
+    DISK=$(echo "$disks" | xargs whiptail --clear --nocancel --title "Disk installation" --menu "Choose a disk" 15 70 4 3>&1 1>&2 2>&3)    
 
-    if [[ ${DISK} == "nvme*" ]]
+    if [[ ${DISK} == nvme* ]]
         then
             DISK_PREFIX="${DISK}p"
         else 
@@ -162,20 +157,17 @@ set_swap() {
         DEFAULT_SWAP_SIZE=$((RAM_SIZE + 1))
         INPUT_SWAP_SIZE=${SWAP_SIZE:=$DEFAULT_SWAP_SIZE}
         SWAP_SIZE=$(whiptail --clear --nocancel --inputbox "Enter the swap size in Go" 8 78 ${INPUT_SWAP_SIZE} --title "Swap partition" 3>&1 1>&2 2>&3)
-        if [ "$?" -eq "0" ] && [ ! -z "${SWAP_SIZE##*[!0-9]*}" ] && [ ${SWAP_SIZE} -gt 0 ]
-            then
-                break
-            fi
+        [[ "$?" == 0 && -n "${SWAP_SIZE##*[!0-9]*}" && ${SWAP_SIZE} -gt 0 ]] && break
     done
 }
 
 set_ucode() {
-    if (( $(cat /proc/cpuinfo | grep -i intel | wc -l) > 0 ))
+    if (( $(grep -ci intel /proc/cpuinfo) > 0 ))
         then
             UCODE_PKG=intel-ucode
         fi
 
-    if (( $(cat /proc/cpuinfo | grep -i amd | wc -l) > 0 ))
+    if (( $(grep -ci amd /proc/cpuinfo) > 0 ))
         then
             UCODE_PKG=amd-ucode
         fi
@@ -217,7 +209,7 @@ change_menu() {
                         "Change Timezone"    "    ${ZONE}" \
                         "Change Hostname"    "    ${HOSTNAME}" \
                         "Change Username"    "    ${USERNAME}" \
-                        "Change Password"    "    $(echo $PASSWORD | sed "s/./\*/g")" \
+                        "Change Password"    "    $(echo "$PASSWORD" | sed "s/./\*/g")" \
                         "Change Disk"        "    ${DISK}" \
                         "Change Swap"        "    ${SWAP_SIZE} Go" \
                         "Install ucode"      "    ${INSTALL_UCODE}" \
@@ -227,10 +219,7 @@ change_menu() {
                         "Install Arch Linux" "" \
                         3>&1 1>&2 2>&3)
 
-        if [ "$?" -eq "1" ]
-            then
-                exit 1
-            fi
+        [[ "$?" == 1 ]] && exit 1
 
         case "${MENU_OPTION}" in
             "Change Keyboard")
