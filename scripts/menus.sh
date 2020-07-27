@@ -68,6 +68,45 @@ set_keyboard() {
 
 }
 
+set_locale() {
+
+    localelist=$(grep -E "^#?[a-z].*UTF-8" /etc/locale.gen | sed 's/#//' | awk '{print $1" -"}')
+    
+    while (true)
+      do
+        LOCALE=$(whiptail --clear --nocancel --menu "Choose your locale" 18 60 11 \
+        "en_US.UTF-8" "United States" \
+        "en_AU.UTF-8" "Australia" \
+        "pt_BR.UTF-8" "Brazil" \
+        "en_CA.UTF-8" "Canada" \
+        "es_ES.UTF-8" "Spanish" \
+        "fr_FR.UTF-8" "French" \
+        "de_DE.UTF-8" "German" \
+        "el_GR.UTF-8" "Greek" \
+        "en_GB.UTF-8" "Great Britain" \
+        "hu_HU.UTF-8" "Hungary" \
+        "it_IT.UTF-8" "Italian" \
+        "lv_LV.UTF-8" "Latvian" \
+        "es_MX.UTF-8" "Mexico" \
+        "pt_PT.UTF-8" "Portugal" \
+        "ro_RO.UTF-8" "Romanian" \
+        "ru_RU.UTF-8" "Russian" \
+        "es_ES.UTF-8" "Spanish" \
+        "sv_SE.UTF-8" "Swedish" \
+        "other"       "Other" 3>&1 1>&2 2>&3)
+
+        if [ "$LOCALE" = "other" ]; then
+            LOCALE=$(whiptail --clear --cancel-button "Choose another locale" --menu "Choose your locale" 18 60 11 $localelist 3>&1 1>&2 2>&3)
+            if [ "$?" -eq "0" ]; then
+                break
+            fi
+        else
+            break
+        fi
+    done
+
+}
+
 set_timezone() {
 
     zonelist=$(find /usr/share/zoneinfo -maxdepth 1 | sed -n -e 's!^.*/!!p' | grep -v "posix\|right\|zoneinfo\|zone.tab\|zone1970.tab\|W-SU\|WET\|posixrules\|MST7MDT\|iso3166.tab\|CST6CDT" | sort | sed 's/$/ -/g')
@@ -214,6 +253,7 @@ change_menu() {
     do
         MENU_OPTION=$(whiptail --clear --cancel-button "Abort Installation" --title "Installation" --menu "Choose an option" 25 75 16 \
                         "Change Keyboard"    "    ${KEYBOARD}" \
+                        "Change Locale"      "    ${LOCALE}" \
                         "Change Timezone"    "    ${ZONE}" \
                         "Change Hostname"    "    ${HOSTNAME}" \
                         "Change Username"    "    ${USERNAME}" \
@@ -235,6 +275,9 @@ change_menu() {
         case "${MENU_OPTION}" in
             "Change Keyboard")
                     set_keyboard
+            ;;
+            "Change Locale"
+                    set_locale
             ;;
             "Change Timezone")
                     set_timezone

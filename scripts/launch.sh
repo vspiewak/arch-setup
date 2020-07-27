@@ -5,6 +5,7 @@ run_bootstrap() {
     check_arch_iso
     install_ok
     set_keyboard
+    set_locale
     set_timezone
     set_hostname
     set_username

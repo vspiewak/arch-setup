@@ -98,10 +98,11 @@ bootstrap() {
 
 
     # localization
-    sed -i 's/^#en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/' /mnt/etc/locale.gen
+    #sed -i 's/^#en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/' /mnt/etc/locale.gen
+    sed -i -e "s/#$LOCALE/$LOCALE/" /mnt/etc/locale.gen
 
     touch /mnt/etc/locale.conf
-    sed -i 's/^LANG=.*/LANG=en_US.UTF-8/' /mnt/etc/locale.conf
+    sed -i "s/^LANG=.*/LANG=${LOCALE}/" /mnt/etc/locale.conf
 
     echo "KEYMAP=${KEYBOARD}" > /mnt/etc/vconsole.conf
 
