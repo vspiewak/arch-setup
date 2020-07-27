@@ -276,7 +276,7 @@ change_menu() {
             "Change Keyboard")
                     set_keyboard
             ;;
-            "Change Locale"
+            "Change Locale")
                     set_locale
             ;;
             "Change Timezone")
