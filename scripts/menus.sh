@@ -96,7 +96,7 @@ set_locale() {
         "other"       "Other" 3>&1 1>&2 2>&3)
 
         if [ "$LOCALE" = "other" ]; then
-            LOCALE=$(whiptail --clear --cancel-button "Choose another locale" --menu "Choose your locale" 18 60 11 $localelist 3>&1 1>&2 2>&3)
+            LOCALE=$(whiptail --clear --cancel-button "Back" --menu "Choose your locale" 18 60 11 $localelist 3>&1 1>&2 2>&3)
             if [ "$?" -eq "0" ]; then
                 break
             fi
