@@ -194,6 +194,23 @@ set_disk() {
 
 }
 
+set_kernel() {
+
+    while (true)
+        do
+            KERNEL_PKG=$(whiptail --clear --nocancel --menu "Choose a kernel" --title "Kernel" 15 70 6 \
+            "linux"             "    Vanilla kernel" \
+            "linux-hardened"    "    A security-focused kernel" \
+            "linux-lts"         "    Long-term support kernel" \
+            "linux-zen"         "    Zen patched kernel" \
+            3>&1 1>&2 2>&3)
+
+            break
+
+        done
+
+}
+
 set_swap() {
     while (true)
     do
@@ -258,6 +275,7 @@ change_menu() {
                         "Change Hostname"    "    ${HOSTNAME}" \
                         "Change Username"    "    ${USERNAME}" \
                         "Change Password"    "    $(echo $PASSWORD | sed "s/./\*/g")" \
+                        "Change Kernel"      "    ${KERNEL_PKG}" \
                         "Change Disk"        "    ${DISK}" \
                         "Change Swap"        "    ${SWAP_SIZE} Go" \
                         "Install ucode"      "    ${INSTALL_UCODE}" \
@@ -290,6 +308,9 @@ change_menu() {
             ;;
             "Change Password")
                     set_password
+            ;;
+            "Change Kernel")
+                    set_kernel
             ;;
             "Change Disk")
                     set_disk

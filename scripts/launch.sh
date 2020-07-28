@@ -10,6 +10,7 @@ run_bootstrap() {
     set_hostname
     set_username
     set_password
+    set_kernel
     set_disk
     set_swap
     set_ucode
