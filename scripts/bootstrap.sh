@@ -142,7 +142,7 @@ EOF
     echo -e "${PASSWORD}\n${PASSWORD}" | passwd --root /mnt
 
 
-    # user / sudoers
+    # install sudo
     arch-chroot /mnt pacman -Syu --noconfirm sudo
 
     # enable sudo without passwd
@@ -154,6 +154,20 @@ EOF
     arch-chroot /mnt useradd -m -g users -G wheel -s /bin/bash ${USERNAME}
     echo "${USERNAME}:${PASSWORD}" | chpasswd --root /mnt
 
+    # delay of 4s after failed login
+    #tac /mnt/etc/pam.d/system-login \
+    #    | awk '/^auth/ && !seen{print "auth       optional   pam_faildelay.so     delay=4000000"; seen++} 1' \
+    #    | tac \
+    #    > /mnt/etc/pam.d/system-login
+
+    # lock user 10min after 3 failed attempts
+    sed -i -E 's/^auth.*pam_tally2.so\s+/& deny=3 unlock_time=600 /' /mnt/etc/pam.d/system-login
+
+    # install usbguard
+    arch-chroot /mnt pacman -Syu --noconfirm usbguard
+
+    # restrict root login
+    #passwd --lock root
 
     # install yay
     if [ "${INSTALL_YAY}" == "Yes" ]
