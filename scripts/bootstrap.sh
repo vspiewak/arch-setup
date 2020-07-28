@@ -43,7 +43,7 @@ bootstrap() {
     swapon /dev/vg0/swap
 
     # install essential packages
-    pacstrap /mnt base linux linux-firmware lvm2
+    pacstrap /mnt base ${KERNEL_PKG} linux-firmware lvm2
 
     # generate /etc/fstab
     genfstab -U /mnt >> /mnt/etc/fstab
