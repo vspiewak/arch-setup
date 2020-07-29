@@ -178,4 +178,11 @@ EOF
             arch-chroot /mnt su -c "rm -rf /home/${USERNAME}/yay" ${USERNAME}
         fi
 
+    # virtualbox
+    IS_VIRTUALBOX=$(dmesg --notime | grep -i "virtualbox" | wc -l)
+    if [ "$IS_VIRTUALBOX" -gt "0" ] 
+        then
+            arch-chroot /mnt pacman -Syu --noconfirm virtualbox-guest-utils
+        fi
+
 }
