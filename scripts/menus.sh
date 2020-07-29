@@ -215,7 +215,7 @@ set_swap() {
     while (true)
     do
         RAM_SIZE=$(free --giga | head -n 2 | tail -n 1 | awk '{ print $2 }')
-        DEFAULT_SWAP_SIZE=$((RAM_SIZE + 1))
+        DEFAULT_SWAP_SIZE=$((RAM_SIZE * 2))
         INPUT_SWAP_SIZE=${SWAP_SIZE:=$DEFAULT_SWAP_SIZE}
         SWAP_SIZE=$(whiptail --clear --nocancel --inputbox "Enter the swap size in Go" 8 78 ${INPUT_SWAP_SIZE} --title "Swap partition" 3>&1 1>&2 2>&3)
         if [ "$?" -eq "0" ] && [ ! -z "${SWAP_SIZE##*[!0-9]*}" ] && [ ${SWAP_SIZE} -gt 0 ]
