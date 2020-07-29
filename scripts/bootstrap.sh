@@ -167,7 +167,7 @@ EOF
     arch-chroot /mnt pacman -Syu --noconfirm usbguard
 
     # restrict root login
-    #passwd --lock root
+    passwd --lock root
 
     # install yay
     if [ "${INSTALL_YAY}" == "Yes" ]
