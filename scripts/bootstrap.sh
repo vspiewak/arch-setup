@@ -185,4 +185,18 @@ EOF
             arch-chroot /mnt pacman -Syu --noconfirm virtualbox-guest-utils
         fi
 
+    # install xorg
+    arch-chroot /mnt pacman -Syu --noconfirm xorg xorg-server
+
+    # install fonts
+    arch-chroot /mnt pacman -Syu --noconfirm ttf-dejavu ttf-liberation ttf-joypixels ttf-jetbrains-mono
+
+    # install openbox
+    arch-chroot /mnt pacman -Syu --noconfirm openbox
+
+    # install some softwares
+    arch-chroot /mnt pacman -Syu --noconfirm \
+        alacritty \
+        tmux \
+        firefox-developer-edition
 }
