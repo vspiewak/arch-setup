@@ -164,7 +164,7 @@ EOF
     sed -i -E 's/^auth.*pam_tally2.so\s+/& deny=3 unlock_time=600 /' /mnt/etc/pam.d/system-login
 
     # install usbguard
-    arch-chroot /mnt pacman -Syu --noconfirm usbguard
+    #arch-chroot /mnt pacman -Syu --noconfirm usbguard
 
     # restrict root login
     passwd --lock root
@@ -192,11 +192,11 @@ EOF
     arch-chroot /mnt pacman -Syu --noconfirm ttf-dejavu ttf-liberation ttf-joypixels ttf-jetbrains-mono
 
     # install openbox
-    arch-chroot /mnt pacman -Syu --noconfirm openbox
+    #arch-chroot /mnt pacman -Syu --noconfirm openbox
 
     # install some softwares
-    arch-chroot /mnt pacman -Syu --noconfirm \
-        alacritty \
-        tmux \
-        firefox-developer-edition
+    #arch-chroot /mnt pacman -Syu --noconfirm \
+    #    alacritty \
+    #    tmux \
+    #    firefox-developer-edition
 }
